@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.User">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <result property="loginPwd" column="login_pwd" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="registerTime" column="register_time" jdbcType="TIMESTAMP"/>
+            <result property="registerIp" column="register_ip" jdbcType="VARCHAR"/>
+            <result property="lastTime" column="last_time" jdbcType="TIMESTAMP"/>
+            <result property="lastIp" column="last_ip" jdbcType="VARCHAR"/>
+            <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+            <result property="imToken" column="im_token" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_name,nick_name,
+        login_pwd,status,register_time,
+        register_ip,last_time,last_ip,
+        modify_time,im_token
+    </sql>
+</mapper>
