@@ -69,6 +69,9 @@ public class UserController {
     @Value("${im.appSecret}")
     private String appSecret;
 
+    @Value("${im.plat}")
+    private String plat;
+
     @Transactional(rollbackFor = Exception.class)
     @ApiOperation(value = "注册")
     @PostMapping("/register")
@@ -96,7 +99,7 @@ public class UserController {
 
         // 调用网易创建用户
         Map<String, Object> param = new HashMap<>();
-        param.put("accid", userName);
+        param.put("accid", plat + userName);
         param.put("name", userName);
         JSONObject imJson = ImUtils.post(imUrl + "/nimserver/user/create.action", appkey, appSecret, param);
         JSONObject infoJson = imJson.getJSONObject("info");
@@ -122,7 +125,7 @@ public class UserController {
         String token = JwtUtils.getToken(map);
         redisTemplate.opsForValue().set(RedisKeyUtil.UserTokenKey(userName), token, expire, TimeUnit.MINUTES);
 
-        return R.ok().put("token", token).put("imToken", imToken);
+        return R.ok().put("token", token).put("imToken", imToken).put("accid", plat + userName);
     }
 
     @ApiOperation(value = "退出登录")
@@ -197,6 +200,6 @@ public class UserController {
 
         /** 删除密码输入错误次数 **/
         redisTemplate.delete(incKey);
-        return R.ok().put("token", token).put("imToken", user.getImToken());
+        return R.ok().put("token", token).put("imToken", user.getImToken()).put("accid", plat + userName);
     }
 }
