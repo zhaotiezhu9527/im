@@ -12,6 +12,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.controller.request.LoginRequest;
+import com.juhai.api.controller.request.UpdatePwdRequest;
 import com.juhai.api.controller.request.UserRegisterRequest;
 import com.juhai.api.utils.ImUtils;
 import com.juhai.api.utils.JwtUtils;
@@ -201,5 +202,27 @@ public class UserController {
         /** 删除密码输入错误次数 **/
         redisTemplate.delete(incKey);
         return R.ok().put("token", token).put("imToken", user.getImToken()).put("accid", plat + userName);
+    }
+
+    @ApiOperation(value = "修改用户密码")
+    @PostMapping("/updatePwd")
+    public R updatePwd(@Validated UpdatePwdRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+
+        String oldPwd = SecureUtil.md5(request.getOldPwd());
+        if (!StringUtils.equals(oldPwd, user.getLoginPwd())) {
+            return R.error(MsgUtil.get("system.user.oldpwderror"));
+        }
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getLoginPwd, SecureUtil.md5(request.getNewPwd()))
+                        .set(User::getModifyTime, new Date())
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
     }
 }
