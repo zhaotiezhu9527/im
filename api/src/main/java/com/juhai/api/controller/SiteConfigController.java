@@ -37,7 +37,7 @@ public class SiteConfigController {
 
         JSONObject obj = new JSONObject();
         obj.put("webDomain", allParamByMap.get("web_domain"));
-        obj.put("about", allMessageMap.get("about"));
+        obj.put("about", allMessageMap.get("about").getContent());
         return R.ok().put("data", obj);
     }
 }
