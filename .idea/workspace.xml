@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="584331cd-1041-4ebd-9d14-474e7f22c7b9" name="Changes" comment="修改密码">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="584331cd-1041-4ebd-9d14-474e7f22c7b9" name="Changes" comment="密码规则">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8170f240-36e1-4c62-b05c-0dd81462c7b3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8170f240-36e1-4c62-b05c-0dd81462c7b3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/juhai/commons/constants/RegConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/juhai/commons/constants/RegConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/juhai/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/juhai/api/controller/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +121,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1691565351048</updated>
-      <workItem from="1691565352163" duration="18063000" />
+      <workItem from="1691565352163" duration="19764000" />
     </task>
     <task id="LOCAL-00001" summary="first commit..">
       <created>1691573091949</created>
@@ -157,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691723690931</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="密码规则">
+      <created>1691739073414</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1691739073414</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +176,7 @@
     <MESSAGE value="dockerfile" />
     <MESSAGE value="添加平台标识" />
     <MESSAGE value="修改密码" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改密码" />
+    <MESSAGE value="密码规则" />
+    <option name="LAST_COMMIT_MESSAGE" value="密码规则" />
   </component>
 </project>

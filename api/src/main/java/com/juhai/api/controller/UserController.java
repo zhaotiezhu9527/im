@@ -1,9 +1,8 @@
 package com.juhai.api.controller;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -16,8 +15,10 @@ import com.juhai.api.controller.request.UpdatePwdRequest;
 import com.juhai.api.controller.request.UserRegisterRequest;
 import com.juhai.api.utils.ImUtils;
 import com.juhai.api.utils.JwtUtils;
+import com.juhai.commons.entity.Avatar;
 import com.juhai.commons.entity.User;
 import com.juhai.commons.entity.UserLog;
+import com.juhai.commons.service.AvatarService;
 import com.juhai.commons.service.ParamterService;
 import com.juhai.commons.service.UserLogService;
 import com.juhai.commons.service.UserService;
@@ -73,6 +74,9 @@ public class UserController {
     @Value("${im.plat}")
     private String plat;
 
+    @Autowired
+    private AvatarService avatarService;
+
     @Transactional(rollbackFor = Exception.class)
     @ApiOperation(value = "注册")
     @PostMapping("/register")
@@ -84,6 +88,13 @@ public class UserController {
         if (exist > 0) {
             return R.error(MsgUtil.get("system.user.register.exist"));
         }
+
+        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
+        String resourceDomain = allParamByMap.get("resource_domain");
+
+        // 随机获取一个头像
+        List<Avatar> list = avatarService.list();
+        Collections.shuffle(list);
 
         Date now = new Date();
         User user = new User();
@@ -102,6 +113,8 @@ public class UserController {
         Map<String, Object> param = new HashMap<>();
         param.put("accid", plat + userName);
         param.put("name", userName);
+        param.put("icon", resourceDomain + list.get(0).getImgUrl());
+        param.put("gender", 0);
         JSONObject imJson = ImUtils.post(imUrl + "/nimserver/user/create.action", appkey, appSecret, param);
         JSONObject infoJson = imJson.getJSONObject("info");
         String imToken = infoJson.getString("token");
