@@ -1,4 +1,4 @@
-package com.juhai.api.controller.request;
+package com.juhai.api.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.juhai.commons.entity.MessageText;
