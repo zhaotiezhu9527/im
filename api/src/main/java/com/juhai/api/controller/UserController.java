@@ -123,6 +123,32 @@ public class UserController {
                         .set(User::getImToken, imToken)
                         .eq(User::getUserName, request.getUserName()));
 
+        // 添加默认客服为好友
+        String kefu = allParamByMap.get("kefu");
+        if (StringUtils.isNotBlank(kefu)) {
+            User kefuUser = userService.getUserByName(kefu);
+            if (kefuUser != null) {
+                Map<String, Object> addParam = new HashMap<>();
+                addParam.put("accid", plat + userName);
+                addParam.put("faccid", plat + kefu);
+                addParam.put("type", 1);
+                ImUtils.post(imUrl + "/nimserver/friend/add.action", appkey, appSecret, addParam);
+                // 发送问候语
+                String welcome = allParamByMap.get("welcome");
+                if (StringUtils.isNotBlank(welcome)) {
+                    Map<String, Object> messageParam = new HashMap<>();
+                    messageParam.put("from", plat + kefu);
+                    messageParam.put("ope", 0);
+                    messageParam.put("to", plat + userName);
+                    messageParam.put("type", 0);
+                    JSONObject messageObj = new JSONObject();
+                    messageObj.put("msg", welcome);
+                    messageParam.put("body", messageObj.toString());
+                    ImUtils.post(imUrl + "/nimserver/friend/add.action", appkey, appSecret, messageParam);
+                }
+            }
+        }
+
         // 登录日志
         UserLog log = new UserLog();
         log.setUserName(userName);
