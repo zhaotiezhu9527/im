@@ -144,7 +144,7 @@ public class UserController {
                     JSONObject messageObj = new JSONObject();
                     messageObj.put("msg", welcome);
                     messageParam.put("body", messageObj.toString());
-                    ImUtils.post(imUrl + "/nimserver/friend/add.action", appkey, appSecret, messageParam);
+                    ImUtils.post(imUrl + "/nimserver/msg/sendMsg.action", appkey, appSecret, messageParam);
                 }
             }
         }
