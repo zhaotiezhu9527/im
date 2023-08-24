@@ -125,7 +125,7 @@ public class UserController {
 
         // 添加默认客服为好友
         String kefu = allParamByMap.get("kefu");
-        if (StringUtils.isNotBlank(kefu)) {
+        if (StringUtils.isNotBlank(kefu) && !StringUtils.equals(kefu, userName)) {
             User kefuUser = userService.getUserByName(kefu);
             if (kefuUser != null) {
                 Map<String, Object> addParam = new HashMap<>();
