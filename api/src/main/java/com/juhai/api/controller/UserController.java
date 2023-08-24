@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.servlet.ServletUtil;
@@ -136,15 +137,24 @@ public class UserController {
                 // 发送问候语
                 String welcome = allParamByMap.get("welcome");
                 if (StringUtils.isNotBlank(welcome)) {
-                    Map<String, Object> messageParam = new HashMap<>();
-                    messageParam.put("from", plat + kefu);
-                    messageParam.put("ope", 0);
-                    messageParam.put("to", plat + userName);
-                    messageParam.put("type", 0);
-                    JSONObject messageObj = new JSONObject();
-                    messageObj.put("msg", welcome);
-                    messageParam.put("body", messageObj.toString());
-                    ImUtils.post(imUrl + "/nimserver/msg/sendMsg.action", appkey, appSecret, messageParam);
+                    ThreadUtil.execAsync(new Runnable() {
+                        @Override
+                        public void run() {
+                            Map<String, Object> messageParam = new HashMap<>();
+                            messageParam.put("from", plat + kefu);
+                            messageParam.put("ope", 0);
+                            messageParam.put("to", plat + userName);
+                            messageParam.put("type", 0);
+                            JSONObject messageObj = new JSONObject();
+                            messageObj.put("msg", welcome);
+                            messageParam.put("body", messageObj.toString());
+                            try {
+                                ImUtils.post(imUrl + "/nimserver/msg/sendMsg.action", appkey, appSecret, messageParam);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
                 }
             }
         }
