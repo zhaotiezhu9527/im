@@ -81,6 +81,9 @@ public class User implements Serializable {
     @TableField(value = "im_token")
     private String imToken;
 
+    @TableField(value = "im_user_name")
+    private String imUserName;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

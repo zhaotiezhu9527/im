@@ -97,6 +97,7 @@ public class UserController {
         List<Avatar> list = avatarService.list();
         Collections.shuffle(list);
 
+        String imUserName = plat + userName;
         Date now = new Date();
         User user = new User();
         user.setUserName(userName);
@@ -108,11 +109,12 @@ public class UserController {
         user.setLastTime(now);
         user.setLastIp(clientIP);
         user.setModifyTime(now);
+        user.setImUserName(imUserName);
         userService.save(user);
 
         // 调用网易创建用户
         Map<String, Object> param = new HashMap<>();
-        param.put("accid", plat + userName);
+        param.put("accid", imUserName);
         param.put("name", userName);
         param.put("icon", resourceDomain + list.get(0).getImgUrl());
         param.put("gender", 0);
