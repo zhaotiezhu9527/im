@@ -9,6 +9,7 @@ import com.alibaba.fastjson2.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -36,5 +37,33 @@ public class ImUtils {
             throw new Exception(body.getString("desc"));
         }
         return body;
+    }
+
+
+    public static JSONObject postTx(String url,JSONObject params) throws Exception {
+        HttpRequest post = HttpUtil.createPost(url);
+        post.body(params.toString());
+
+        log.info("请求参数:" + post.toString());
+        HttpResponse response = post.execute();
+        JSONObject body = JSONObject.parseObject(response.body());
+        log.info("请求响应:" + body);
+        if (body == null) {
+            throw new Exception("请求调用异常");
+        }
+        if (body.getIntValue("ErrorCode") != 0) {
+            throw new Exception(body.getString("ErrorInfo"));
+        }
+        return body;
+    }
+
+    public static void main(String[] args) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("sdkappid", "222");
+        params.put("identifier", "identifier");
+        params.put("usersig", "usersig");
+        params.put("random", RandomUtil.randomLong(1, 429496729));
+        params.put("contenttype", "json");
+        System.out.println(UrlQuery.of(params));
     }
 }

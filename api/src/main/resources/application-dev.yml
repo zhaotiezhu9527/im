@@ -25,8 +25,15 @@ login:
 #token失效时间
 token:
   expire: 15
+#网易
 im:
   plat: a1
   url: https://api.netease.im
   appkey: fdeee5472da804a1da4ff6a3c96ab986
   appSecret: 08995fac687e
+#腾讯
+IMConfig:
+  txUrl: https://console.tim.qq.com
+  sdkAppId: 1600002539
+  secretKey: e05fb6e437025f12385953543c200b3ec90502e6286fdf69eb40a12d0269bdec
+  identifier: administrator

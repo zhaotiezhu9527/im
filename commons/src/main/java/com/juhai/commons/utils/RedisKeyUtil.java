@@ -20,6 +20,16 @@ public class RedisKeyUtil {
         return StrUtil.format(template, userId);
     }
 
+    /**
+     * 用户登录token key
+     * @param userId 用户Id
+     * @return
+     */
+    public static String UserIMKey(Object userId) {
+        String template = "user:login:im:{}";
+        return StrUtil.format(template, userId);
+    }
+
     public static String UserOnlineKey(Object userId) {
         String template = "user:online:token:{}";
         return StrUtil.format(template, userId);

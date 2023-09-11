@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="584331cd-1041-4ebd-9d14-474e7f22c7b9" name="Changes" comment="自动发送问候语">
+    <list default="true" id="584331cd-1041-4ebd-9d14-474e7f22c7b9" name="Changes" comment="添加用户IM账户字段">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/src/main/java/com/juhai/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/juhai/api/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/juhai/commons/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/juhai/commons/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/juhai/api/utils/ImUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/juhai/api/utils/ImUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/juhai/commons/utils/RedisKeyUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/juhai/commons/utils/RedisKeyUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +97,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ImUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.juhai.api.utils.ImUtils" />
+      <module name="api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.juhai.api.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="api" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.juhai.api.ApiApplication" />
@@ -109,6 +126,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ApiApplication" />
+        <item itemvalue="Application.ImUtils" />
         <item itemvalue="Application.CheckSumBuilder" />
       </list>
     </recent_temporary>
@@ -123,7 +141,10 @@
       <updated>1691565351048</updated>
       <workItem from="1691565352163" duration="39622000" />
       <workItem from="1693381267095" duration="1648000" />
-      <workItem from="1693542539271" duration="66000" />
+      <workItem from="1693542539271" duration="2231000" />
+      <workItem from="1693627790115" duration="682000" />
+      <workItem from="1693821840094" duration="1644000" />
+      <workItem from="1694409276828" duration="6267000" />
     </task>
     <task id="LOCAL-00001" summary="first commit..">
       <created>1691573091949</created>
@@ -237,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692867790441</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="添加用户IM账户字段">
+      <created>1693542655515</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1693542655515</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +282,7 @@
     <MESSAGE value="添加平台标识" />
     <MESSAGE value="自动加好友功能" />
     <MESSAGE value="自动发送问候语" />
-    <option name="LAST_COMMIT_MESSAGE" value="自动发送问候语" />
+    <MESSAGE value="添加用户IM账户字段" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加用户IM账户字段" />
   </component>
 </project>
