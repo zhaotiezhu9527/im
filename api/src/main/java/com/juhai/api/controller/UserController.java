@@ -257,6 +257,40 @@ public class UserController {
 
                 addFriend.put("ForceAddFlags", 1);
                 ImUtils.postTx(addFriendUrl, addFriend);
+
+                // 发送问候语
+                String welcome = allParamByMap.get("welcome");
+                if (StringUtils.isNotBlank(welcome)) {
+                    ThreadUtil.execAsync(new Runnable() {
+                        @Override
+                        public void run() {
+                            String sendMsgUrl = txUrl + "/v4/openim/sendmsg?" + getImPath(usersig);
+                            JSONObject sendMsg = new JSONObject();
+                            sendMsg.put("SyncOtherMachine", 1);
+                            sendMsg.put("From_Account", kefu);
+                            sendMsg.put("To_Account", userName);
+                            sendMsg.put("MsgRandom", RandomUtil.randomLong(1, 429496729));
+                            JSONArray msgBodyArr = new JSONArray();
+                            JSONObject msg1 = new JSONObject();
+                            msg1.put("MsgType", "TIMTextElem");
+
+                            JSONObject text = new JSONObject();
+                            text.put("Text", welcome);
+                            msg1.put("MsgContent", text);
+
+                            msg1.put("IsNeedReadReceipt", 1);
+                            msgBodyArr.add(msg1);
+                            sendMsg.put("MsgBody", msgBodyArr);
+                            sendMsg.put("SyncOtherMachine", 1);
+
+                            try {
+                                ImUtils.postTx(sendMsgUrl, sendMsg);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
+                }
             }
         }
 

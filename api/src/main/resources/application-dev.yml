@@ -33,7 +33,7 @@ im:
   appSecret: 08995fac687e
 #腾讯
 IMConfig:
-  txUrl: https://console.tim.qq.com
-  sdkAppId: 1600002539
-  secretKey: e05fb6e437025f12385953543c200b3ec90502e6286fdf69eb40a12d0269bdec
+  txUrl: https://adminapisgp.im.qcloud.com
+  sdkAppId: 20004058
+  secretKey: 2042224864d907f19457c06f97400eddfbea46bea784c455ebb023543c9bf82d
   identifier: administrator
