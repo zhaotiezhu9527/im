@@ -11,6 +11,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.controller.request.LoginRequest;
+import com.juhai.api.controller.request.SendMsgRequest;
 import com.juhai.api.controller.request.UpdatePwdRequest;
 import com.juhai.api.controller.request.UserRegisterRequest;
 import com.juhai.api.utils.ImUtils;
@@ -479,6 +480,44 @@ public class UserController {
         String userSig = new TLSSigAPIv2(sdkAppId, secretKey).genUserSig(userName, expire);
         redisTemplate.opsForValue().set(RedisKeyUtil.UserIMKey(userName), userSig, expire, TimeUnit.SECONDS);
         return R.ok().put("token", token).put("usersig", userSig);
+    }
+
+    @ApiOperation(value = "发送消息-腾讯")
+    @PostMapping("/sengMsg/V2")
+    public R sengMsgV2(@Validated SendMsgRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+        if (StringUtils.isBlank(request.getFromUser())) {
+            return R.error("请输入发送人用户名");
+        }
+
+        String usersig = new TLSSigAPIv2(sdkAppId, secretKey).genUserSig(identifier, 60);
+        String sendMsgUrl = txUrl + "/v4/openim/sendmsg?" + getImPath(usersig);
+
+        JSONObject sendMsg = new JSONObject();
+        sendMsg.put("SyncOtherMachine", 1);
+        sendMsg.put("From_Account", request.getFromUser());
+        sendMsg.put("To_Account", userName);
+        sendMsg.put("MsgRandom", RandomUtil.randomLong(1, 429496729));
+        JSONArray msgBodyArr = new JSONArray();
+        JSONObject msg1 = new JSONObject();
+        msg1.put("MsgType", "TIMTextElem");
+
+        JSONObject text = new JSONObject();
+        text.put("Text", "你好");
+        msg1.put("MsgContent", text);
+
+        msg1.put("IsNeedReadReceipt", 1);
+        msgBodyArr.add(msg1);
+        sendMsg.put("MsgBody", msgBodyArr);
+        sendMsg.put("SyncOtherMachine", 1);
+
+        try {
+            ImUtils.postTx(sendMsgUrl, sendMsg);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return R.ok();
     }
 
     @ApiOperation(value = "修改用户密码")
