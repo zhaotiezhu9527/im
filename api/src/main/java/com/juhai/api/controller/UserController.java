@@ -201,7 +201,7 @@ public class UserController {
     @ApiOperation(value = "注册-腾讯")
     @PostMapping("/register/v2")
     public R registerV2(@Validated UserRegisterRequest request, HttpServletRequest httpServletRequest) throws Exception {
-        String userName = request.getUserName().trim().toLowerCase();
+        String userName = request.getUserName().trim();
         String loginPwd = request.getLoginPwd().trim();
 
         String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
@@ -417,7 +417,7 @@ public class UserController {
     @ApiOperation(value = "登录-腾讯")
     @PostMapping("/login/V2")
     public R loginV2(@Validated LoginRequest request, HttpServletRequest httpServletRequest) {
-        String userName = request.getUserName().trim().toLowerCase();
+        String userName = request.getUserName().trim();
         String loginPwd = request.getLoginPwd().trim();
 
         String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
