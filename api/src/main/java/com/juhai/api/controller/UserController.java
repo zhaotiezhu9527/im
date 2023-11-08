@@ -97,7 +97,8 @@ public class UserController {
     @ApiOperation(value = "注册-网易")
     @PostMapping("/register")
     public R register(@Validated UserRegisterRequest request, HttpServletRequest httpServletRequest) throws Exception {
-        String userName = request.getUserName().toLowerCase();
+        String userName = request.getUserName().trim().toLowerCase();
+        String loginPwd = request.getLoginPwd().trim();
         String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
         // 查询用户名是否存在
         long exist = userService.count(new LambdaQueryWrapper<User>().eq(User::getUserName, userName));
@@ -117,7 +118,7 @@ public class UserController {
         User user = new User();
         user.setUserName(userName);
         user.setNickName(request.getUserName());
-        user.setLoginPwd(SecureUtil.md5(request.getLoginPwd()));
+        user.setLoginPwd(SecureUtil.md5(loginPwd));
         user.setStatus(1);
         user.setRegisterTime(now);
         user.setRegisterIp(clientIP);
@@ -200,7 +201,9 @@ public class UserController {
     @ApiOperation(value = "注册-腾讯")
     @PostMapping("/register/v2")
     public R registerV2(@Validated UserRegisterRequest request, HttpServletRequest httpServletRequest) throws Exception {
-        String userName = request.getUserName().toLowerCase();
+        String userName = request.getUserName().trim().toLowerCase();
+        String loginPwd = request.getLoginPwd().trim();
+
         String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
         // 查询用户名是否存在
         long exist = userService.count(new LambdaQueryWrapper<User>().eq(User::getUserName, userName));
@@ -220,7 +223,7 @@ public class UserController {
         User user = new User();
         user.setUserName(userName);
         user.setNickName(request.getUserName());
-        user.setLoginPwd(SecureUtil.md5(request.getLoginPwd()));
+        user.setLoginPwd(SecureUtil.md5(loginPwd));
         user.setStatus(1);
         user.setRegisterTime(now);
         user.setRegisterIp(clientIP);
@@ -414,7 +417,9 @@ public class UserController {
     @ApiOperation(value = "登录-腾讯")
     @PostMapping("/login/V2")
     public R loginV2(@Validated LoginRequest request, HttpServletRequest httpServletRequest) {
-        String userName = request.getUserName().toLowerCase();
+        String userName = request.getUserName().trim().toLowerCase();
+        String loginPwd = request.getLoginPwd().trim();
+
         String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
 
         // 查询用户信息
@@ -440,7 +445,7 @@ public class UserController {
         }
 
         // 验证密码正确
-        String pwd = SecureUtil.md5(request.getLoginPwd());
+        String pwd = SecureUtil.md5(loginPwd);
         if (!StringUtils.equals(pwd, user.getLoginPwd())) {
             /** 累计密码错误 **/
             redisTemplate.opsForValue().increment(incKey);
